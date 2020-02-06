@@ -17,3 +17,11 @@
     left: 52.3%;
     top: 23.5%;
 }
+
+.circle-image {
+    left: 6.06%;
+    top: 16.11%;
+    z-index: -1;
+    max-width: calc(41.63% - 6.06%);
+    object-fit: cover;
+}
