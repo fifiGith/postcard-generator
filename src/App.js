@@ -3,7 +3,9 @@ import dance from "./imgs/dance.gif";
 import meme from "./imgs/meme.jpg";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import postcard1 from "./imgs/postcard11.png";
+import postcard1 from "./imgs/postcard1.png";
+import postcard2 from "./imgs/postcard2.png";
+import postcard3 from "./imgs/postcard3.png";
 import FileSaver from "file-saver";
 import Draggable from "react-draggable";
 import { Rnd } from "react-rnd";
@@ -25,17 +27,18 @@ class App extends Component {
 
     state = {
         text: "",
-        circleImg: ""
+        circleImg: "",
+        mainImg: postcard1
     };
 
     componentDidMount() {
-        console.log(this.img.current);
+        // console.log(this.img.current);
         // this.img.current.height = this.img.current.width / 0.69230769230769 + "px";
     }
 
     componentDidUpdate() {
         // console.log(this.img.current.width)
-        console.log(this.state.circleImg);
+        // console.log(this.state.circleImg);
         // this.img.current.height = this.img.current.width / 0.69230769230769 + "px";
     }
 
@@ -64,60 +67,90 @@ class App extends Component {
         });
     };
 
+    selectImg = e => {
+        this.setState({ mainImg: e.target.src });
+    };
+
     render() {
         const { classes } = this.props;
         return (
-            <div className="container">
-                <div className="text-center text-lg font-bold">Postcard Generator</div>
-                <div className="flex justify-center mt-4">
-                    <img src={dance} style={{ width: "64px", height: "64px" }} />
-                </div>
-                <div className="border shadow-lg rounded-lg p-8 my-6">
-                    <div className="w-full ">
-                        <div className="w-full relative" ref={this.imgContainer}>
-                            <img src={postcard1} ref={this.img} />
-
-                            <div className="absolute message">
-                                <pre>{this.state.text}</pre>
+            <React.Fragment>
+                <div className="container">
+                    <div className="text-center text-lg font-bold">Postcard Generator</div>
+                    <div className="flex justify-center mt-4">
+                        <img src={dance} style={{ width: "64px", height: "64px" }} />
+                    </div>
+                    <div className="border shadow-lg rounded-lg p-8 my-6">
+                        <div className="border mb-2 p-2 flex">
+                            <div onClick={this.selectImg}>
+                                <img src={postcard1} name="postcard1" />
                             </div>
-                            <div className="absolute circle-image">
+                            <div onClick={this.selectImg}>
+                                <img src={postcard2} name="postcard2" />
+                            </div>
+                            <div onClick={this.selectImg}>
+                                <img src={postcard3} name="postcard3" />
+                            </div>
+                        </div>
+                        <div className="w-full ">
+                            <div className="w-full relative" ref={this.imgContainer}>
+                                <img src={this.state.mainImg} ref={this.img} />
+
+                                <div className="absolute message">
+                                    <pre>{this.state.text}</pre>
+                                </div>
+                                <div className="absolute circle-image">
+                                    <img src={this.state.circleImg} />
+                                </div>
+
+                                {/* <Canvas text={this.state.text}></Canvas> */}
+                            </div>
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="mt-4"></div>
+                            <TextField
+                                id="text-field"
+                                label="Multiline"
+                                multiline
+                                rows="4"
+                                variant="outlined"
+                                onChange={this.handleText}
+                                value={this.state.text}
+                            />
+                            <div className="mt-4"></div>
+                            <div className="flex justify-end">
+                                <Button component="label" variant="contained" color="primary" startIcon={<CloudUploadIcon />}>
+                                    อัพโหลดรูปใส่กรอบ
+                                    <input type="file" accept="image/*" style={{ display: "none" }} onChange={this.handleUpload} />
+                                </Button>
+                                <Button
+                                    component="button"
+                                    onClick={this.handleDownload}
+                                    variant="contained"
+                                    color="secondary"
+                                    startIcon={<CloudDownloadIcon />}
+                                >
+                                    ดาวน์โหลด Postcard
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div className="w-full relative" ref={this.imgContainer}>
+                        <img src={this.state.mainImg} ref={this.img} />
+
+                        <div className="absolute message">
+                            <pre>{this.state.text}</pre>
+                        </div>
+                        <div className="absolute circle-image">
                             <img src={this.state.circleImg} />
-                            </div>
-                            
+                        </div>
 
-                            {/* <Canvas text={this.state.text}></Canvas> */}
-                        </div>
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="mt-4"></div>
-                        <TextField
-                            id="text-field"
-                            label="Multiline"
-                            multiline
-                            rows="4"
-                            variant="outlined"
-                            onChange={this.handleText}
-                            value={this.state.text}
-                        />
-                        <div className="mt-4"></div>
-                        <div className="flex justify-end">
-                            <Button component="label" variant="contained" color="primary" startIcon={<CloudUploadIcon />}>
-                                อัพโหลดรูปใส่กรอบ
-                                <input type="file" accept="image/*" style={{ display: "none" }} onChange={this.handleUpload} />
-                            </Button>
-                            <Button
-                                component="button"
-                                onClick={this.handleDownload}
-                                variant="contained"
-                                color="secondary"
-                                startIcon={<CloudDownloadIcon />}
-                            >
-                                ดาวน์โหลด Postcard
-                            </Button>
-                        </div>
+                        {/* <Canvas text={this.state.text}></Canvas> */}
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
