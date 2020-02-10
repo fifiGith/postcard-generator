@@ -16,12 +16,31 @@
 .message {
     left: 52.3%;
     top: 23.5%;
+    /* left: 0;
+    top: 0; */
+}
+
+.big-message {
+    left: 52.3%;
+    top: 23.5%;
+    font-size: 24px;
 }
 
 .circle-image {
-    left: 6.06%;
-    top: 16.11%;
+    /* left: 6.06%;
+    top: 16.11%; */
+    left: 6%;
+    top: 16%;
     z-index: -1;
     max-width: calc(41.63% - 6.06%);
     object-fit: cover;
+}
+
+.image-container {
+    width: 1040px;
+}
+
+.hidden-container {
+    position: absolute;
+    top: -10000px;
 }
