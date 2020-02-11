@@ -154,7 +154,7 @@ class App extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="">
+                <div className="hidden-container">
                     <div className="relative image-container" ref={this.imgContainer}>
                         <img src={this.state.mainImg} ref={this.img} alt="mainImg" />
 
