@@ -5,7 +5,7 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import postcard1 from "./imgs/postcard1.png";
 import postcard2 from "./imgs/postcard2.png";
 import postcard3 from "./imgs/postcard3.png";
-import FileSaver from "file-saver";
+import { saveAs } from "file-saver";
 import "./App.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -55,8 +55,8 @@ class App extends Component {
 
     handleDownload = () => {
         console.log(this.imgContainer.current);
-        domtoimage.toPng(this.imgContainer.current).then(function(img) {
-            FileSaver.saveAs(img, "postcard.png");
+        domtoimage.toBlob(this.imgContainer.current).then(function(blob) {
+            saveAs(blob, "postcard.png");
             // window.saveAs(blob, "postcard.png");
         });
     };
