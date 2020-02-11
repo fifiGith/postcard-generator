@@ -9,7 +9,8 @@ import "./App.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import domtoimage from "dom-to-image";
-import { saveAs } from "file-saver"
+import html2canvas from "html2canvas";
+import { saveAs } from "file-saver";
 
 class App extends Component {
     constructor(props) {
@@ -27,21 +28,20 @@ class App extends Component {
     };
 
     componentDidMount() {
-        const html = document.querySelector('html')
+        const html = document.querySelector("html");
         document.addEventListener("DOMContentLoaded", () => {
             if (html.clientWidth / 58 > 16) {
-                this.previewMessage.current.style.fontSize = "16px"
+                this.previewMessage.current.style.fontSize = "16px";
             } else {
-                this.previewMessage.current.style.fontSize = html.clientWidth / 58 + "px"
+                this.previewMessage.current.style.fontSize = html.clientWidth / 58 + "px";
             }
         });
-        window.addEventListener('resize', () => {
-            this.previewMessage.current.style.fontSize = this.previewImage.current.height / 34 + "px"
+        window.addEventListener("resize", () => {
+            this.previewMessage.current.style.fontSize = this.previewImage.current.height / 34 + "px";
         });
     }
 
-    componentDidUpdate() {
-    }
+    componentDidUpdate() {}
 
     handleText = e => {
         this.setState({ text: e.target.value });
@@ -62,26 +62,38 @@ class App extends Component {
     }
 
     handleDownload = () => {
-        const imagedom = document.querySelector('.image-container');
-        domtoimage.toPng(imagedom).then(function(img) {
-            // var image = new Image();
-            // image.src = img;
-            // var w = window.open("");
-            // w.document.write(image.outerHTML, 'Image');
-            // console.log(img)
-            // window.open(img, '_blank')
-            saveAs(img, "postcard.png");
-            // window.saveAs(img, )
-            // let data = img;
-            // let w = window.open("about:blank");
-            // let image = new Image();
-            // image.src = data;
-            // setTimeout(function() {
-            //     w.document.write(image.outerHTML);
-            // }, 0);
+        // const imagedom = document.querySelector('.image-container');
+        // domtoimage.toBlob(this.imgContainer.current).then(function(img) {
+        //     // var image = new Image();
+        //     // image.src = img;
+        //     // var w = window.open("");
+        //     // w.document.write(image.outerHTML, 'Image');
+        //     // console.log(img)
+        //     // window.open(img, '_blank')
+        //     saveAs(img, "postcard.png");
+        //     // window.saveAs(img, )
+        //     // let data = img;
+        //     // let w = window.open("about:blank");
+        //     // let image = new Image();
+        //     // image.src = data;
+        //     // setTimeout(function() {
+        //     //     w.document.write(image.outerHTML);
+        //     // }, 0);
 
-            // window.location.href = img
+        //     // window.location.href = img
+        // });
+
+        domtoimage.toPng(this.imgContainer.current).then(function(dataUrl) {
+            var link = document.createElement("a");
+            link.download = "postcard.png";
+            link.href = dataUrl;
+            link.click();
         });
+
+        // const div = this.imgContainer.current;
+        // console.log(div)
+        // var image = div.toDataURL("image/png").replace("image/png", "image/octet-stream"); //Convert image to 'octet-stream' (Just a download, really)
+        // window.location.href = image;
     };
 
     selectImg = e => {
@@ -115,7 +127,7 @@ class App extends Component {
                                 <div className="absolute message" ref={this.previewMessage}>
                                     <pre>{this.state.text}</pre>
                                 </div>
-                                    <img className="absolute circle-image" src={this.state.circleImg} alt="" />
+                                <img className="absolute circle-image" src={this.state.circleImg} alt="" />
                             </div>
                         </div>
                         <div className="flex flex-col">
@@ -155,11 +167,7 @@ class App extends Component {
                         <div className="absolute big-message">
                             <pre>{this.state.text}</pre>
                         </div>
-                        {this.state.circleImg ? (
-                            <img className="absolute circle-image" src={this.state.circleImg} alt="" />
-                        ) : (
-                            ""
-                        )}
+                        {this.state.circleImg ? <img className="absolute circle-image" src={this.state.circleImg} alt="" /> : ""}
                     </div>
                 </div>
             </React.Fragment>
