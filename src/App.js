@@ -5,7 +5,6 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import postcard1 from "./imgs/postcard1.png";
 import postcard2 from "./imgs/postcard2.png";
 import postcard3 from "./imgs/postcard3.png";
-import { saveAs } from "file-saver";
 import "./App.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -112,15 +111,15 @@ class App extends Component {
                             </div>
                         </div>
                         <div className="w-full ">
-                            <div className="w-full relative">
+                            <div className="relative">
                                 <img src={this.state.mainImg} alt="mainImg" ref={this.previewImage} />
 
                                 <div className="absolute message" ref={this.previewMessage}>
                                     <pre>{this.state.text}</pre>
                                 </div>
-                                <div className="absolute circle-image">
-                                    <img src={this.state.circleImg} alt="" />
-                                </div>
+                                {/* <div className=""> */}
+                                    <img className="absolute circle-image" src={this.state.circleImg} alt="" />
+                                {/* </div> */}
 
                                 {/* <Canvas text={this.state.text}></Canvas> */}
                             </div>
@@ -155,7 +154,7 @@ class App extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="hidden-container">
+                <div className="">
                     <div className="relative image-container" ref={this.imgContainer}>
                         <img src={this.state.mainImg} ref={this.img} alt="mainImg" />
 
@@ -163,9 +162,7 @@ class App extends Component {
                             <pre>{this.state.text}</pre>
                         </div>
                         {this.state.circleImg ? (
-                            <div className="absolute circle-image">
-                                <img src={this.state.circleImg} alt="circleImg" />
-                            </div>
+                            <img className="absolute circle-image" src={this.state.circleImg} alt="" />
                         ) : (
                             ""
                         )}
