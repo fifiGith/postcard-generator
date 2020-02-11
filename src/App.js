@@ -54,10 +54,20 @@ class App extends Component {
     }
 
     handleDownload = () => {
-        console.log(this.imgContainer.current);
-        domtoimage.toBlob(this.imgContainer.current).then(function(blob) {
-            saveAs(blob, "postcard.png");
-            // window.saveAs(blob, "postcard.png");
+        domtoimage.toPng(this.imgContainer.current).then(function(img) {
+            // var image = new Image();
+            // image.src = img;
+            // var w = window.open("");
+            // w.document.write(image.outerHTML, 'Image');
+            // window.open(image)
+            window.saveAs(img, "postcard.png");
+            // let data = img;
+            // let w = window.open("about:blank");
+            // let image = new Image();
+            // image.src = data;
+            // setTimeout(function() {
+            //     w.document.write(image.outerHTML);
+            // }, 0);
         });
     };
 
@@ -130,20 +140,20 @@ class App extends Component {
                     </div>
                 </div>
                 <div className="hidden-container">
-                        <div className="relative image-container" ref={this.imgContainer}>
-                            <img src={this.state.mainImg} ref={this.img} alt="mainImg" />
+                    <div className="relative image-container" ref={this.imgContainer}>
+                        <img src={this.state.mainImg} ref={this.img} alt="mainImg" />
 
-                            <div className="absolute big-message">
-                                <pre>{this.state.text}</pre>
-                            </div>
-                            {this.state.circleImg ? (
-                                <div className="absolute circle-image">
-                                    <img src={this.state.circleImg} alt="circleImg" />
-                                </div>
-                            ) : (
-                                ""
-                            )}
+                        <div className="absolute big-message">
+                            <pre>{this.state.text}</pre>
                         </div>
+                        {this.state.circleImg ? (
+                            <div className="absolute circle-image">
+                                <img src={this.state.circleImg} alt="circleImg" />
+                            </div>
+                        ) : (
+                            ""
+                        )}
+                    </div>
                 </div>
             </React.Fragment>
         );
