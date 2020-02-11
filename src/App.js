@@ -9,6 +9,7 @@ import "./App.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver"
 
 class App extends Component {
     constructor(props) {
@@ -35,18 +36,11 @@ class App extends Component {
             }
         });
         window.addEventListener('resize', () => {
-            // console.log(this.previewImage.current.width)
             this.previewMessage.current.style.fontSize = this.previewImage.current.height / 34 + "px"
         });
-        // window.onresize = () => {
-        // }
-        // this.img.current.height = this.img.current.width / 0.69230769230769 + "px";
     }
 
     componentDidUpdate() {
-        // console.log(this.img.current.width)
-        // console.log(this.state.circleImg);
-        // this.img.current.height = this.img.current.width / 0.69230769230769 + "px";
     }
 
     handleText = e => {
@@ -68,21 +62,25 @@ class App extends Component {
     }
 
     handleDownload = () => {
-        domtoimage.toPng(this.imgContainer.current).then(function(img) {
+        const imagedom = document.querySelector('.image-container');
+        domtoimage.toPng(imagedom).then(function(img) {
             // var image = new Image();
             // image.src = img;
             // var w = window.open("");
             // w.document.write(image.outerHTML, 'Image');
             // console.log(img)
             // window.open(img, '_blank')
-            // window.saveAs(img, "postcard.png");
-            let data = img;
-            let w = window.open("about:blank");
-            let image = new Image();
-            image.src = data;
-            setTimeout(function() {
-                w.document.write(image.outerHTML);
-            }, 0);
+            saveAs(img, "postcard.png");
+            // window.saveAs(img, )
+            // let data = img;
+            // let w = window.open("about:blank");
+            // let image = new Image();
+            // image.src = data;
+            // setTimeout(function() {
+            //     w.document.write(image.outerHTML);
+            // }, 0);
+
+            // window.location.href = img
         });
     };
 
@@ -117,11 +115,7 @@ class App extends Component {
                                 <div className="absolute message" ref={this.previewMessage}>
                                     <pre>{this.state.text}</pre>
                                 </div>
-                                {/* <div className=""> */}
                                     <img className="absolute circle-image" src={this.state.circleImg} alt="" />
-                                {/* </div> */}
-
-                                {/* <Canvas text={this.state.text}></Canvas> */}
                             </div>
                         </div>
                         <div className="flex flex-col">
