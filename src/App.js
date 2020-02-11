@@ -16,6 +16,8 @@ class App extends Component {
         super(props);
         this.img = React.createRef();
         this.imgContainer = React.createRef();
+        this.previewImage = React.createRef();
+        this.previewMessage = React.createRef();
     }
 
     state = {
@@ -25,7 +27,20 @@ class App extends Component {
     };
 
     componentDidMount() {
-        // console.log(this.img.current);
+        const html = document.querySelector('html')
+        document.addEventListener("DOMContentLoaded", () => {
+            if (html.clientWidth / 58 > 16) {
+                this.previewMessage.current.style.fontSize = "16px"
+            } else {
+                this.previewMessage.current.style.fontSize = html.clientWidth / 58 + "px"
+            }
+        });
+        window.addEventListener('resize', () => {
+            // console.log(this.previewImage.current.width)
+            this.previewMessage.current.style.fontSize = this.previewImage.current.height / 34 + "px"
+        });
+        // window.onresize = () => {
+        // }
         // this.img.current.height = this.img.current.width / 0.69230769230769 + "px";
     }
 
@@ -98,9 +113,9 @@ class App extends Component {
                         </div>
                         <div className="w-full ">
                             <div className="w-full relative">
-                                <img src={this.state.mainImg} alt="mainImg" />
+                                <img src={this.state.mainImg} alt="mainImg" ref={this.previewImage} />
 
-                                <div className="absolute message">
+                                <div className="absolute message" ref={this.previewMessage}>
                                     <pre>{this.state.text}</pre>
                                 </div>
                                 <div className="absolute circle-image">

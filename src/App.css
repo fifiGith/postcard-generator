@@ -29,10 +29,12 @@
 .circle-image {
     /* left: 6.06%;
     top: 16.11%; */
-    left: 6%;
-    top: 16%;
+    left: 5.8%;
+    top: 15.8%;
     z-index: -1;
-    max-width: calc(41.63% - 6.06%);
+    /* max-width: calc(41.63% - 6.06%); */
+    max-width: calc(41.63% - 5%);
+    max-height: calc(41.63% - 5%);
     object-fit: cover;
 }
 
