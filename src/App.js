@@ -55,8 +55,8 @@ class App extends Component {
 
     handleDownload = () => {
         console.log(this.imgContainer.current);
-        domtoimage.toBlob(this.imgContainer.current).then(function(blob) {
-            FileSaver.saveAs(blob, "postcard.png");
+        domtoimage.toPng(this.imgContainer.current).then(function(img) {
+            FileSaver.saveAs(img, "postcard.png");
             // window.saveAs(blob, "postcard.png");
         });
     };
