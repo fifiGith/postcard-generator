@@ -59,15 +59,16 @@ class App extends Component {
             // image.src = img;
             // var w = window.open("");
             // w.document.write(image.outerHTML, 'Image');
-            // window.open(image)
-            window.saveAs(img, "postcard.png");
-            // let data = img;
-            // let w = window.open("about:blank");
-            // let image = new Image();
-            // image.src = data;
-            // setTimeout(function() {
-            //     w.document.write(image.outerHTML);
-            // }, 0);
+            // console.log(img)
+            // window.open(img, '_blank')
+            // window.saveAs(img, "postcard.png");
+            let data = img;
+            let w = window.open("about:blank");
+            let image = new Image();
+            image.src = data;
+            setTimeout(function() {
+                w.document.write(image.outerHTML);
+            }, 0);
         });
     };
 
